@@ -1,0 +1,10 @@
+.env
+# ignoramos las carpetas "migrations" de los proyectos Django
+**/migrations/
+**/__pycache__/
+
+#entorno virtual
+env
+
+#lo que este adentro de la carpeta media
+media/*
