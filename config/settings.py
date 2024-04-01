@@ -31,7 +31,8 @@ BASE_APPS = [
 THIRD_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-    'django_countries'
+    'django_countries',
+    'corsheaders'
 ]
 
 OWN_APPS = [
@@ -42,6 +43,7 @@ OWN_APPS = [
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + OWN_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,3 +133,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    '*',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+]
+
+CORS_ALLOW_CREDENTIALS = True
