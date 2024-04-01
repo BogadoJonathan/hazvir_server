@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('NAME_DB'),
         'USER': os.environ.get('USER_DB'),
         'PASSWORD': os.environ.get('PASSWORD_DB'),
-        'HOST': 'localhost',  # O el host proporcionado por HestiaCP
-        'PORT': '3306',  # O el puerto proporcionado por HestiaCP
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
