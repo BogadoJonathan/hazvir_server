@@ -56,7 +56,7 @@ class Player(ImageModel):
     def __str__(self):
         return f"{self.name} {self.last_name} - {self.nickname}"
     
-class Game(models.Model):
+class Game(ImageModel):
     STATUS_CHOICES = [
         ('sin_empezar', 'Sin Empezar'),
         ('en_proceso', 'En Proceso'),
@@ -76,7 +76,7 @@ class Game(models.Model):
     def __str__(self):
         return self.title
 
-class PlayerInGame(models.Model):
+class PlayerInGame(ImageModel):
     STATUS_CHOICES = [
         ('sin_estado', 'Sin estado'),
         ('en_juego', 'En juego'),
