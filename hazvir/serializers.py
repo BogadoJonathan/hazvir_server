@@ -11,3 +11,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = '__all__'
 
+class PlayerInGameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerInGame
+        fields = '__all__'

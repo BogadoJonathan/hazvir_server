@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import Player, Game
-from .serializers import PlayerSerializer, GameSerializer
+from .models import Player, Game, PlayerInGame
+from .serializers import PlayerSerializer, GameSerializer, PlayerInGameSerializer
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -23,5 +23,17 @@ class GameView(ModelViewSet):
         serializer = GameSerializer(queryset, many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+class PlayerInGameView(ModelViewSet):
+    serializer_class = PlayerInGameSerializer
+    queryset = PlayerInGame.objects.all()
+    
+    def list(self, request):
+        game_id = request.query_params.get('game_id', None)
+        if game_id is not None:
+            queryset = self.queryset.filter(game=game_id)
+        else:
+            queryset = self.queryset
+        serializer = PlayerInGameSerializer(queryset, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
     
     
