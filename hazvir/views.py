@@ -18,7 +18,7 @@ class GameView(ModelViewSet):
         id_name = request.query_params.get('id_name', None)
         if id_name is not None:
             queryset = self.queryset.filter(id_name=id_name)
-        serializer = GameSerializer(queryset, many=True)
+        serializer = GameSerializer(self.queryset, many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
     
