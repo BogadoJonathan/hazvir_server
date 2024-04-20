@@ -16,7 +16,10 @@ class VotoDelPublicoView(ModelViewSet):
     queryset = VotoDelPublico.objects.all()
     
     def create(self, request):
-        ip_address = request.META.get('REMOTE_ADDR')
+        ip_address = request.META.get('HTTP_X_REAL_IP')
+        if not ip_address:
+            return Response({'error': 'No se ha enviado la dirección IP.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         ip_votes = VotoDelPublico.objects.filter(ip=ip_address, fecha_voto__gte=timezone.now() - timedelta(hours=12))
         if ip_votes.exists():
             return Response({'error': 'Ya has votado en las últimas 12 horas.'}, status=status.HTTP_400_BAD_REQUEST)
