@@ -15,8 +15,7 @@ class VotoDelPublicoView(ModelViewSet):
     serializer_class = VotoDelPublicoSerializer
     queryset = VotoDelPublico.objects.all()
     
-    @action(detail=False, methods=['post'])
-    def voto(self, request):
+    def create(self, request):
         ip_address = request.META.get('REMOTE_ADDR')
         ip_votes = VotoDelPublico.objects.filter(ip=ip_address, date__gte=timezone.now() - timedelta(hours=12))
         if ip_votes.exists():
