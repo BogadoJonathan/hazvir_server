@@ -24,11 +24,10 @@ class VotoDelPublicoView(ModelViewSet):
         #el VotoDelPublico tiene asociado el modelo: Votacion, donde ahi se muestra a las personas a quien se pueda votar
         #por lo que se debe hacer una validacion para que el voto sea valido, recibiremos el id de la votacion, la buscamos y verificamos el voto
         votacion_id = request.data.get('votacion', None)
-        try:
-            votacion = Votacion.objects.get(pk=votacion_id)
-        except Votacion.DoesNotExist:
-            votacion = None  
-        votacion = Votacion.objects.get(pk=votacion_id)
+        votacion = Votacion.objects.filter(pk=votacion_id)
+        if not votacion.exists():
+            return Response({'error': 'La votación no existe.'}, status=status.HTTP_400_BAD_REQUEST) 
+        votacion = votacion.first()
         if not votacion:
             return Response({'error': 'La votación no existe.'}, status=status.HTTP_400_BAD_REQUEST)
         if votacion.finaliza < timezone.now():
