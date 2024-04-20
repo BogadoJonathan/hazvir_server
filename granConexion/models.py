@@ -32,7 +32,7 @@ class Votacion(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Votación: {self.gala}"
+        return f"Votación: {self.name}"
 
 class VotoDelPublico(models.Model):
     player = models.ForeignKey(PlayerInGame, on_delete=models.CASCADE)
