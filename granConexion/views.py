@@ -16,7 +16,7 @@ class VotoDelPublicoView(ModelViewSet):
     queryset = VotoDelPublico.objects.all()
     
     @action(detail=False, methods=['post'])
-    def list(self, request):
+    def voto(self, request):
         ip_address = request.META.get('REMOTE_ADDR')
         ip_votes = VotoDelPublico.objects.filter(ip=ip_address, date__gte=timezone.now() - timedelta(hours=12))
         if ip_votes.exists():
