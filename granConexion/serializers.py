@@ -10,3 +10,8 @@ class VotoDelPublicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = VotoDelPublico
         fields = '__all__'
+        extra_kwargs = {
+            'ip': {'required': False},
+            'player': {'required': True},
+            'votacion': {'required': True}
+        }
