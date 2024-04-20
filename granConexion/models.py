@@ -26,7 +26,7 @@ from hazvir.models import PlayerInGame
 
 class Votacion(models.Model):
     nominados = models.ManyToManyField(PlayerInGame, blank=True)
-    name = models.models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     finaliza = models.DateTimeField()
     
     date = models.DateTimeField(auto_now_add=True)
