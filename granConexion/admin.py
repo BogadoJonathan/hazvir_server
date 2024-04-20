@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Nominacion, GalaDeNominacion, votoDelPublico, GalaEliminacion
+from .models import  VotoDelPublico, Votacion
 
 # Register your models here.
-admin.site.register(Nominacion)
-admin.site.register(GalaDeNominacion)
-admin.site.register(votoDelPublico)
-admin.site.register(GalaEliminacion)
+admin.site.register(Votacion)
+admin.site.register(VotoDelPublico)
