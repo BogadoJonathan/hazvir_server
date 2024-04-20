@@ -27,12 +27,12 @@ class VotoDelPublicoView(ModelViewSet):
         votacion_id = request.data.get('votacion', None)
         if not votacion_id:
             return Response({'error': 'No se ha enviado la votación.'}, status=status.HTTP_400_BAD_REQUEST)
-        votacion = Votacion.objects.filter(pk=votacion_id)
-        if not votacion.exists():
-            return Response({'error': 'La votación no existe.'}, status=status.HTTP_400_BAD_REQUEST) 
-        votacion = votacion.first()
-        if not votacion:
+        
+        try:
+            votacion = Votacion.objects.get(pk=votacion_id)
+        except:
             return Response({'error': 'La votación no existe.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         if votacion.finaliza < timezone.now():
             return Response({'error': 'La votación ha finalizado.'}, status=status.HTTP_400_BAD_REQUEST)
         id_player = request.data.get('player', None)
