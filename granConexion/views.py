@@ -17,7 +17,7 @@ class VotoDelPublicoView(ModelViewSet):
     
     def create(self, request):
         ip_address = request.META.get('REMOTE_ADDR')
-        ip_votes = VotoDelPublico.objects.filter(ip=ip_address, date__gte=timezone.now() - timedelta(hours=12))
+        ip_votes = VotoDelPublico.objects.filter(ip=ip_address, fecha_voto__gte=timezone.now() - timedelta(hours=12))
         if ip_votes.exists():
             return Response({'error': 'Ya has votado en las últimas 12 horas.'}, status=status.HTTP_400_BAD_REQUEST)
         #el VotoDelPublico tiene asociado el modelo: Votacion, donde ahi se muestra a las personas a quien se pueda votar
