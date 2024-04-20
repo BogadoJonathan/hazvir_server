@@ -35,7 +35,7 @@ class VotoDelPublicoView(ModelViewSet):
         if votacion.finaliza < timezone.now():
             return Response({'error': 'La votación ha finalizado.'}, status=status.HTTP_400_BAD_REQUEST)
         id_player = request.data.get('player', None)
-        if not votacion.Nominados.filter(pk=id_player).exists():
+        if not votacion.nominados.filter(pk=id_player).exists():
             return Response({'error': 'El jugador no está en la votación.'}, status=status.HTTP_400_BAD_REQUEST)
         
         serializer = self.get_serializer(data=request.data)
