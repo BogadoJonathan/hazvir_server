@@ -41,4 +41,4 @@ class VotoDelPublicoView(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(ip=ip_address)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(request.META, status=status.HTTP_201_CREATED)
