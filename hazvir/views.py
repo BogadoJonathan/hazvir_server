@@ -4,7 +4,6 @@ from .serializers import PlayerSerializer, GameSerializer, PlayerInGameSerialize
 from rest_framework import status
 from rest_framework.response import Response
 
-
 class PlayerView(ModelViewSet):
     http_method_names = ['get']
     serializer_class = PlayerSerializer
@@ -35,5 +34,3 @@ class PlayerInGameView(ModelViewSet):
             queryset = self.queryset
         serializer = PlayerInGameSerializer(queryset, many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-    
-    
