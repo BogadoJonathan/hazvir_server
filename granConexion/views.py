@@ -10,6 +10,17 @@ from rest_framework.decorators import action
 class VotacionView(ModelViewSet):
     serializer_class = VotacionSerializer
     queryset = Votacion.objects.all()
+    
+    def list(self, request):
+        id_votacion = request.query_params.get('id_votacion', None)
+        if id_votacion is not None:
+            queryset = self.queryset.filter(pk=id_votacion)
+            if not queryset.exists():
+                return Response({'error': 'La votación no existe.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            queryset = self.queryset
+        serializer = VotacionSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class VotoDelPublicoView(ModelViewSet):
     serializer_class = VotoDelPublicoSerializer

@@ -17,6 +17,8 @@ class GameView(ModelViewSet):
         id_name = request.query_params.get('id_name', None)
         if id_name is not None:
             queryset = self.queryset.filter(id_name=id_name)
+            if not queryset.exists():
+                return Response({'error': 'The game does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             queryset = self.queryset
         serializer = GameSerializer(queryset, many=True)
@@ -28,8 +30,12 @@ class PlayerInGameView(ModelViewSet):
     
     def list(self, request):
         game_id = request.query_params.get('game_id', None)
+        players = request.query_params.get('id_players', None)
+        
         if game_id is not None:
             queryset = self.queryset.filter(game=game_id)
+        elif players is not None:
+            queryset = self.queryset.filter(pk__in=players)
         else:
             queryset = self.queryset
         serializer = PlayerInGameSerializer(queryset, many=True)
