@@ -1,5 +1,7 @@
 from django.db import models
 from hazvir.models import PlayerInGame
+from django.db.models import Count
+
 # Create your models here.
 
 # class Nominacion(models.Model):
