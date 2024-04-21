@@ -33,6 +33,11 @@ class Votacion(models.Model):
     
     def __str__(self):
         return f"Votación: {self.name}"
+    
+    def obtener_resultados(self):
+        # Calcula los resultados de la votación
+        resultados = self.votodelpublico_set.values('player__player__nickname').annotate(total_votos=Count('player')).order_by('-total_votos')
+        return resultados
 
 class VotoDelPublico(models.Model):
     player = models.ForeignKey(PlayerInGame, on_delete=models.CASCADE)
