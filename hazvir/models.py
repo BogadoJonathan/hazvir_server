@@ -95,8 +95,8 @@ class PlayerInGame(ImageModel):
     update_date = models.DateTimeField(auto_now=True)
     
     @property
-    def nickname(self):
-        return self.player.nickname
+    def player_name(self):
+        return self.player.name if self.player else None
 
     def __str__(self):
         return self.player.name + " - " + self.game.title
