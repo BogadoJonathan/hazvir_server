@@ -14,6 +14,7 @@ class VotacionAdmin(admin.ModelAdmin):
     def ver_resultados(self, obj):
         nominados = obj.nominados.all()
         resultados = obj.obtener_resultados()
+        datos_finales = []
         
         for nominado in nominados:
             id_nominado = nominado.id
@@ -23,8 +24,17 @@ class VotacionAdmin(admin.ModelAdmin):
                 votos = resultado_filter[0]['total_votos']
             else:
                 votos = 0
-            resultados_html += f'<p>{nickname_nominado}: {votos} votos</p>'
-        return mark_safe(resultados_html)
+            
+            dato = {
+                'nickname': nickname_nominado,
+                'votos': votos
+            }
+            datos_finales.append(dato)
+        
+        #ordenamos segun cantidad de votos
+        datos_finales.sort(key=lambda x: x['votos'], reverse=True)
+        
+        return datos_finales
             
         # resultados_html = '<h3>Resultados de la votación:</h3>'
         # for jugador, votos in resultados:
