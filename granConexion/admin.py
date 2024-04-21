@@ -8,8 +8,8 @@ class VotoDelPublicoInline(admin.TabularInline):
     extra = 0
 
 class VotacionAdmin(admin.ModelAdmin):
-    # inlines = [VotoDelPublicoInline]
-    # readonly_fields = ['ver_resultados']
+    inlines = [VotoDelPublicoInline]
+    readonly_fields = ['ver_resultados']
 
     def ver_resultados(self, obj):
         nominados = obj.nominados.all()
