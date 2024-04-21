@@ -37,8 +37,7 @@ class PlayerInGameView(ModelViewSet):
         if game_id is not None:
             queryset = self.queryset.filter(game=game_id)
         elif players is not None:
-            if type(players) is not list:
-                return Response({'error': f'id_players must be a list.{players} {type(players)}'}, status=status.HTTP_400_BAD_REQUEST)
+            players = players.replace('[','').replace(']','')
             players = players.split(',')
             queryset = self.queryset.filter(pk__in=players)
         else:
