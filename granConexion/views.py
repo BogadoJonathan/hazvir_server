@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 class VotacionView(ModelViewSet):
+    http_method_names = ['get']
     serializer_class = VotacionSerializer
     queryset = Votacion.objects.all()
     
@@ -23,6 +24,7 @@ class VotacionView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class VotoDelPublicoView(ModelViewSet):
+    http_method_names = ['post']
     serializer_class = VotoDelPublicoSerializer
     queryset = VotoDelPublico.objects.all()
     

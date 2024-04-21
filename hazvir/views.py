@@ -10,6 +10,7 @@ class PlayerView(ModelViewSet):
     queryset = Player.objects.all()
 
 class GameView(ModelViewSet):
+    http_method_names = ['get']
     serializer_class = GameSerializer
     queryset = Game.objects.all()
     
@@ -25,6 +26,7 @@ class GameView(ModelViewSet):
         return Response(serializer.data,status=status.HTTP_200_OK)
 
 class PlayerInGameView(ModelViewSet):
+    http_method_names = ['get']
     serializer_class = PlayerInGameSerializer
     queryset = PlayerInGame.objects.all()
     
