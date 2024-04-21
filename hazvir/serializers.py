@@ -12,6 +12,11 @@ class GameSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PlayerInGameSerializer(serializers.ModelSerializer):
+    player_name = serializers.SerializerMethodField()
+    
     class Meta:
         model = PlayerInGame
-        fields = '__all__' + ['player_name']
+        fields = '__all__'
+    
+    def get_player_name(self, obj):
+        return obj.player.nickname if obj.player else None
