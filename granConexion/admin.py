@@ -33,6 +33,10 @@ class VotacionAdmin(admin.ModelAdmin):
         
         #ordenamos segun cantidad de votos
         datos_finales.sort(key=lambda x: x['votos'], reverse=True)
+        return_datos = ''
+        
+        for dato in datos_finales:
+            return_datos += f'{dato["nickname"]}: {dato["votos"]} votos\n'    
         
         return datos_finales
             
