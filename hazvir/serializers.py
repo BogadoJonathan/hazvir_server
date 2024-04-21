@@ -14,4 +14,4 @@ class GameSerializer(serializers.ModelSerializer):
 class PlayerInGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerInGame
-        fields = ['player_name']
+        fields = '__all__'
