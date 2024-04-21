@@ -38,7 +38,7 @@ class VotacionAdmin(admin.ModelAdmin):
         for dato in datos_finales:
             return_datos += f'{dato["nickname"]}: {dato["votos"]} votos\n'    
         
-        return datos_finales
+        return return_datos
             
         # resultados_html = '<h3>Resultados de la votación:</h3>'
         # for jugador, votos in resultados:
