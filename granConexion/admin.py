@@ -12,10 +12,10 @@ class VotacionAdmin(admin.ModelAdmin):
 
     def ver_resultados(self, obj):
         resultados = obj.obtener_resultados()
-        resultados_html = '<h3>Resultados de la votación:</h3>'
-        for jugador, votos in resultados:
-            resultados_html += f'<p>{jugador}: {votos} votos</p>'
-        return resultados_html
+        # resultados_html = '<h3>Resultados de la votación:</h3>'
+        # for jugador, votos in resultados:
+        #     resultados += f'<p>{jugador}: {votos} votos</p>'
+        return resultados
 
     ver_resultados.short_description = 'Resultados'
 
