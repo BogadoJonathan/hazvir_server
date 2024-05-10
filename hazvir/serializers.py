@@ -20,3 +20,8 @@ class PlayerInGameSerializer(serializers.ModelSerializer):
     
     def get_player_name(self, obj):
         return obj.player.nickname if obj.player else None
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'

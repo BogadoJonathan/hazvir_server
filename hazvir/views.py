@@ -1,9 +1,25 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import Player, Game, PlayerInGame
-from .serializers import PlayerSerializer, GameSerializer, PlayerInGameSerializer
+from .models import Player, Game, PlayerInGame, Post
+from .serializers import PlayerSerializer, GameSerializer, PlayerInGameSerializer, PostSerializer
 from rest_framework import status
 from rest_framework.response import Response
 
+class PostView(ModelViewSet):
+    http_method_names = ['get']
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    
+    def list(self, request):
+        id_game = request.query_params.get('id_game', None)
+        if id_game is not None:
+            queryset = self.queryset.filter(game=id_game)
+            if not queryset.exists():
+                return Response({'error': 'The game does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            queryset = self.queryset
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
 class PlayerView(ModelViewSet):
     http_method_names = ['get']
     serializer_class = PlayerSerializer
