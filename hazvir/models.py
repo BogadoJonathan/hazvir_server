@@ -118,6 +118,8 @@ class Post(ImageModel):
     content = models.TextField()
     image = models.ImageField(upload_to='posts/', blank=True)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    link = models.URLField(max_length=300, blank=True, default='')
+    title_link = models.CharField(max_length=100, blank=True, default='')
     created_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     
