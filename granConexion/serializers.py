@@ -13,5 +13,6 @@ class VotoDelPublicoSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'ip': {'required': False},
             'player': {'required': True},
-            'votacion': {'required': True}
+            'votacion': {'required': True},
+            'visitor_id': {'required': False},
         }

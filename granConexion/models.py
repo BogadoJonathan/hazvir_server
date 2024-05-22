@@ -50,9 +50,11 @@ class VotoDelPublico(models.Model):
     player = models.ForeignKey(PlayerInGame, on_delete=models.CASCADE)
     votacion = models.ForeignKey(Votacion, on_delete=models.CASCADE)
     ip = models.CharField(max_length=50)
+    visitor_id = models.CharField(max_length=255, default=None, null=True, blank=True)
     
     fecha_voto = models.DateTimeField(auto_now_add=True)
-        
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True, default=None)
+    
     def __str__(self):
-        return f"Voto para {self.player.player.nickname}"
+        return f"{self.player.player.nickname} - {self.ip} - {self.date or "sin fecha"}"
 

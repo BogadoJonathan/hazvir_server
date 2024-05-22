@@ -19,12 +19,20 @@ class VotoDelPublicoView(ModelViewSet):
     
     def create(self, request):
         ip_address = request.META.get('HTTP_X_REAL_IP')
+        visitor_id = request.data.get('visitor_id', None)
+        
         if not ip_address:
             return Response({'error': 'No se ha enviado la dirección IP.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not visitor_id:
+            return Response({'error': 'No se ha enviado el visitor_id.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         
         ip_votes = VotoDelPublico.objects.filter(ip=ip_address, fecha_voto__gte=timezone.now() - timedelta(hours=12))
         if ip_votes.exists():
             return Response({'error': 'Tú o tu hogar ya han votado en las últimas 12 horas.'}, status=status.HTTP_400_BAD_REQUEST)
+        visitor_votes = VotoDelPublico.objects.filter(visitor_id=visitor_id, fecha_voto__gte=timezone.now() - timedelta(hours=12))
+        if visitor_votes.exists():
+            return Response({'error': 'Ya has votado en las últimas 12 horas.'}, status=status.HTTP_400_BAD_REQUEST)
         #el VotoDelPublico tiene asociado el modelo: Votacion, donde ahi se muestra a las personas a quien se pueda votar
         #por lo que se debe hacer una validacion para que el voto sea valido, recibiremos el id de la votacion, la buscamos y verificamos el voto
         
@@ -46,4 +54,5 @@ class VotoDelPublicoView(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(ip=ip_address)
+        serializer.save(visitor_id=visitor_id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
