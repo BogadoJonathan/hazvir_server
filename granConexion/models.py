@@ -56,5 +56,6 @@ class VotoDelPublico(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True, default=None)
     
     def __str__(self):
-        return f"{self.player.player.nickname} - {self.ip} - {self.date or "sin fecha"}"
+        fecha = self.date.strftime("%d/%m/%Y %H:%M:%S") if self.date else "sin fecha"
+        return f"{self.player.player.nickname} - {self.ip} - {fecha}"
 
